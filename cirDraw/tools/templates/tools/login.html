@@ -1,0 +1,112 @@
+{% extends "base.html" %}
+{% load static %}
+{% block content %}   
+
+<header class="masthead">
+  <div class="login">
+   <div style="padding-top: 90px"></div>
+    <div style="display: flex;">
+      <div style="padding-left: 10vw;">
+      </div>
+
+      <div style="text-align:center; 
+                  width:80vw; 
+                  height: 75vh; 
+                  border: black solid 1px;
+                  background-color: aliceblue;
+                  color: black;
+                  opacity: 0.9;
+                  display: flex;
+                  padding-top: 4vh;"> 
+          <div style="padding-left: 10vw;"></div>
+          <div style="padding: 20px;">
+            <h1>Registration</h1>
+            <form action="/tools/register/" method="POST">
+              {% csrf_token %}
+              <div class="form-group">
+                  <label for="username-input">Username</label>
+                  <input type="text" class="form-control" id="username-input" name='username' placeholder="Username">
+              </div>
+              <div class="form-group">
+                  <label for="email">Email</label>
+                  <input type="email" class="form-control" id="email" name='email' placeholder="Email">
+              </div>
+              <div class="form-group">
+                  <label for="password">Password</label>
+                  <input type="password" class="form-control" id="password" placeholder="Character > 8" name='password'>
+              </div>
+              
+
+              {% if messages %}
+                {% for message in messages %}
+                  {%if "register_user" in message.tags %}
+                    <div{% if message.tags %} class="{{ message.tags }}" {% endif %}>{{ message }}</div>
+                    <!-- <div class="alert {% if message.tags %}alert-{{ message.tags }}{% endif %}" role="alert">{{ message }}</div> -->
+                  {% endif %}
+                {% endfor %}
+              {% endif %}
+              <br>
+              <button>Register</button>
+            </form>
+          </div>
+          
+          <div style="padding-left: 10.5vw;padding-right: 5.5vw;">
+         
+          </div>
+          <!-- <div style="border: black; width: 10px; height: 20vh;"></div> -->
+          <div style="padding: 20px;width: 20vw;">
+            <h1>Login</h1>
+            <form action="/tools/login/" method="POST">
+              {% csrf_token %}
+              <div class="form-group">
+                  <label for="username-input">Username</label>
+                  <input type="text" class="form-control" id="username-input" name='username' placeholder="Username">
+              </div>
+             
+              <div class="form-group">
+                  <label for="password">Password</label>
+                  <input type="password" class="form-control" id="password" placeholder="Character > 8" name='password'>
+              </div>
+
+              {% if messages %}
+                {% for message in messages %}
+                  {%if "login_user" in message.tags %}
+                    <div{% if message.tags %} class="{{ message.tags }}" {% endif %}>{{ message }}</div>
+                    <!-- <div class="alert {% if message.tags %}alert-{{ message.tags }}{% endif %}" role="alert">{{ message }}</div> -->
+                  {%endif%}
+                {% endfor %}
+              {% endif %}
+
+              <br>
+              <button>Log In</button>
+            </form>
+          </div>
+       
+
+
+
+      <!-- <div style="font-size: 75px;
+          font-weight: 700;
+          line-height: 75px;
+          margin-bottom: 25px;
+          font-family: 'Montserrat', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, 'Helvetica Neue', Arial, sans-serif, 'Apple Color Emoji', 'Segoe UI Emoji', 'Segoe UI Symbol', 'Noto Color Emoji';
+        ">
+        Hellp</div> -->
+      </div>
+
+
+
+      <div style="padding-right: 10vw;">
+
+      </div>
+    
+    </div>
+    
+
+  </div>
+</header>  
+
+  
+ 
+{% endblock %}
+
