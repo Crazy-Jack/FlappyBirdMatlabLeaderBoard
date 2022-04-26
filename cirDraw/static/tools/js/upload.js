@@ -19,6 +19,18 @@ $(document).ready(function () {
     });
     
 
+    function deleteSubmission(md5) {
+	    // delete submission for md5
+	    console.log("this")
+	    console.log(this)
+	    console.log("delete " + md5);
+	    
+	    $.getJSON("/tools/delete_md5/", {'md5': md5}).done(function (delete_flag) {
+		query_user_table();
+		console.log(delete_flag);
+	    	}).fail();
+
+	};
     function query_user_table() {
 	
         $.getJSON("/tools/get_user_data/", {}).done(function (querys) {
@@ -27,7 +39,7 @@ $(document).ready(function () {
                 var table_html = `
                 <table id="usertable">
                     <tr>
-                        <th style="width: 5%;text-align: center;">he</th>
+                        <th style="width: 5%;text-align: center;">Manage</th>
                         <th style="width: 5%;text-align: center;">Category</th>
                         
                         <th style="width: 10%;text-align: center;">Update Time</th>
@@ -42,7 +54,7 @@ $(document).ready(function () {
 
                     </tr>`;
             for (var i in querys) {
-                table_html += `<tr><td style="width: 5%;text-align: center;word-wrap: break-word;"><div onclick="deleteSubmission(${querys[i].md5})"><i class="fa fa-trash"></i></div></td>`	
+                table_html += `<tr><td style="width: 5%;text-align: center;word-wrap: break-word;"><div id="row_${i}" class="clickdelete" value="${querys[i].md5}"><i class="fa fa-trash clickdelete"></i></div></td>`	
                 table_html += `<td style="width: 5%;text-align: center;word-wrap: break-word;">${querys[i].category} </td>`	
                 table_html += `<td style="width: 10%;text-align: center;word-wrap: break-word;">${querys[i].submission_time}</td>`	
                 table_html += `<td style="width: 10%;text-align: center;word-wrap: break-word;">${querys[i].best_score}</td>`	
@@ -57,21 +69,20 @@ $(document).ready(function () {
             
             table_html += `</table>`;
             $(`#usertable`).html(table_html)
+	    console.log(querys);
+	    for (var i in querys) {
+
+		document.getElementById(`row_${i}`).addEventListener("click", function () {
+			deleteSubmission(this.getAttribute('value'));	
+		}, false);
+
+	    }
         });
     };
 	query_user_table();
     
     function finishProcess(md5) {
-        //$('#timer').remove();
-        $('#processtip').append('<p>Submission Completed! <br>Here is the unique id of your submission:' + '<div class="input-group input-group-sm col-5 pl-1" id="reportURL">' +
-            '<input type="text" class="form-control" value="' + md5 + '" id="copy-input">' +
-            '<div class="input-group-append">' +
-            '<button class="btn btn-primary btn-sm" id="copy-button" data-toggle="tooltip" data-placement="bottom" title="Copied!">' +
-            '<i class="far fa-copy"></i>' +
-            '</button></div><br/>' +
-            '<div class="input-group-append"><a class="btn btn-primary btn-sm" style="border-left: 2px solid" href="/tools/user/">Manage Submissions</a></div></div>');
-	
-	// refresh the table
+        $('#processtip').text('Submission Completed!');	// refresh the table
 	// another ajax to /tools/get_user_data/ (returns a qeury table)
 
 
@@ -165,7 +176,7 @@ $(document).ready(function () {
                 timeout: 5000000000,
             };
 
-            $('#submit').text('✓ Submitted').prop('disabled', true);
+	    //$('#submit').text('✓ Submitted').prop('disabled', true);
             $('#cancel').hide();
             
             $('#processtip').after('<div class="lds-roller d-inline-block"><div></div><div></div><div></div><div></div><div></div><div></div><div></div><div></div></div><p class="d-inine-block" id="upload-text">Uploading...</p>');
@@ -181,7 +192,7 @@ $(document).ready(function () {
                         if (status === false) {
                             $('.lds-roller').remove();
                             $('#upload-text').remove();
-                            $('#processtip').html('<p>Processing Failed! Please <a id="refresher" onclick="location.reload()"><i>refresh</i><i class="fas fa-redo-alt ml-1"></i></a></p>');
+                            $('#processtip').html('<p>Processing Failed! Error: ' + error_message + '. Please <a id="refresher" onclick="location.reload()"><i>refresh</i><i class="fas fa-redo-alt ml-1"></i></a></p>');
                             $('#refresher').hover(function(){
                                 $('#refresher').css({'cursor':'pointer', 'color': '#fed136'});
                             },

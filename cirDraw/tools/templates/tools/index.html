@@ -7,13 +7,15 @@
           <h2 style="padding-bottom: 1em;">Category {{category}}</h2>
           <table>
             <tr>
-                <th style="width: 10%;text-align: center;">User<br>Name</th>
+                <th style="width: 20%;text-align: center;">User<br>Name</th>
                 
                 <th style="width: 20%;text-align: center;">Update Time</th>
 
                 <th style="width: 10%;text-align: center;">Best Score </th>
 
-                <th style="width: 20%;text-align: center;">Train Time (s)</th>
+		<th style="width: 20%;text-align: center;">Train <br>Time (s)</th>
+
+                <th style="width: 20%;text-align: center;">No. Neurons</th>
 
                 <th style="width: 70%;text-align: center;"> Video </th>
 
@@ -24,7 +26,8 @@
                 <td style="width: 20%;text-align: center;word-wrap: break-word;">{{ item.submission_time }}</td>
                 <td style="width: 15%;text-align: center;word-wrap: break-word;">{{ item.best_score }}</td>
                 <td style="width: 15%;text-align: center;word-wrap: break-word;">{{ item.train_time }}</td>
-                <td style="width: 70%;text-align: center;word-wrap: break-word;"> <iframe width="560" height="315" src="https://www.youtube.com/embed/{{item.youtube_url}}" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe></td>
+                <td style="width: 15%;text-align: center;word-wrap: break-word;">{{ item.num_nn}}</td>
+                <td style="width: 70%;text-align: center;word-wrap: break-word;"> <iframe width="460" height="215" src="https://www.youtube.com/embed/{{item.youtube_url}}" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe></td>
                 
             </tr>
             {% endfor %}

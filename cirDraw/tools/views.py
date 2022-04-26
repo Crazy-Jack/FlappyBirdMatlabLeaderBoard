@@ -9,8 +9,9 @@ from django.contrib import messages
 from .forms import UploadFileForm, JsonTestFile
 from django.contrib.auth.models import User
 from django.contrib.auth import authenticate, login, logout
-from django.contrib.auth.decorators import login_required
 
+from django.contrib.auth.decorators import login_required
+import pytz
 import scipy.io
 from .models import *
 from django.views.decorators.csrf import csrf_exempt
@@ -27,25 +28,26 @@ import os
 
 
 def render_login_page(request):
-    
+    logout(request)
     context = {}
     return render(request, 'tools/login.html', context)
 
 def render_c1_page(request):
     cat = 1
-    query_category = SubmissionTable.objects.filter(category__exact = cat)
+    query_category = SubmissionTable.objects.filter(category__exact = cat).order_by("-best_score", "train_time")
     context = {'query': query_category, 'category': cat}
     return render(request, 'tools/index.html', context)
 
 def render_c2_page(request):
     cat = 2
-    query_category = SubmissionTable.objects.filter(category__exact = cat)
+    query_category = SubmissionTable.objects.filter(category__exact = cat).order_by("-best_score", "num_nn")
+
     context = {'query': query_category, 'category': cat}
     return render(request, 'tools/index.html', context)
 
 def render_c3_page(request):
     cat = 3
-    query_category = SubmissionTable.objects.filter(category__exact = cat)
+    query_category = SubmissionTable.objects.filter(category__exact = cat).order_by("-best_score")
     context = {'query': query_category, 'category': cat}
     return render(request, 'tools/index.html', context)
 
@@ -56,7 +58,7 @@ def render_upload_page(request):
     return render(request, 'tools/upload.html', context)
 
 def get_user_data(request):
-    query = SubmissionTable.objects.filter(username__exact = request.user.username)
+    query = SubmissionTable.objects.filter(username__exact = request.user.username).order_by("-submission_time")
     l = []
     for i in query:
         obj = {'category': i.category,
@@ -177,6 +179,11 @@ def save_to_files(request):
                 youtube_url = parameters['youtube_url']
                 category = int(parameters['category'][-1])
                 num_nn = int(parameters['num_nn'])
+
+                # time 
+                timezone = pytz.timezone('US/Eastern')
+                with_timezone = timezone.localize(datetime.datetime.now())
+
                 if not md5ob:
                     new_object = SubmissionTable(
                         md5 = md5, 
@@ -186,7 +193,7 @@ def save_to_files(request):
                         best_score = int(train_highscore),
                         andrewid = request.user.email,
                         username = request.user.username,
-                        submission_time = datetime.datetime.now(),
+                        submission_time = with_timezone,
                         train_time = float(train_time),
                         train_episode = int(train_episode),
                         train_deaths = int(train_deaths),
@@ -202,7 +209,7 @@ def save_to_files(request):
                         best_score = int(train_highscore),
                         andrewid = request.user.email,
                         username = request.user.username,
-                        submission_time = datetime.datetime.now(),
+                        submission_time = with_timezone,
                         train_time = float(train_time),
                         train_episode = int(train_episode),
                         train_deaths = int(train_deaths),
@@ -221,6 +228,42 @@ def save_to_files(request):
             return_json = [{'md5':"", 'save_status': False, 'error': str(e)}]
             return JsonResponse(return_json, safe=False)
         
+def delete_md5(request):
+    if request.method == "GET":
+        flag = 1
+        username = request.user.username
+        md5 = request.GET['md5'] 
+
+        # check the user own the md5
+        try:
+            md5ob = SubmissionTable.objects.filter(md5=md5)
+            if len(md5ob) == 0:
+                flag = -1
+        except SubmissionTable.DoesNotExist:
+            md5ob = None
+            flag = -1
+
+        if md5ob is not None:
+            # check if the username matches
+            target_username = md5ob[0].username
+            if target_username != username:
+                flag = -1
+
+        if flag == 1:
+            # delete
+            md5ob.delete()
+            sub_base = "md5_data/"
+            path = sub_base + md5
+            if default_storage.exists(path):
+                default_storage.delete(path)
+
+            # delete file
+            print(f"delete {md5}")
+
+    else:
+        flag = -1
+
+    return JsonResponse([flag], safe=False)
 
 def create_user(request):
     # verify users

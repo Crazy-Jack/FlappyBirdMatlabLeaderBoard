@@ -766,3 +766,8 @@ ul.social-buttons li a:active, ul.social-buttons li a:focus, ul.social-buttons l
 .success {
   color: green;
 }
+
+.clickdeleten {
+  font-size:24px;color:grey;
+}
+.clickdelete:hover {color: yellow}

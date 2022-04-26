@@ -432,4 +432,9 @@ input.hint {
           transform: rotate(360deg);
         }
       }
-      
+     
+
+ .clickdelete:hover {
+  color: yellow;
+  cursor: pointer;
+} 

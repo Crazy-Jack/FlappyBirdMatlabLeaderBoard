@@ -23,6 +23,7 @@ urlpatterns = [
 
     # get user table
     url(r'^get_user_data/$', views.get_user_data),
+    url(r'^delete_md5/$', views.delete_md5),
 
     # # check statistics
     # url(r'^get_stats/$', views.get_stats, name='get_stats'),
