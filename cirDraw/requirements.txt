@@ -1,0 +1,4 @@
+Django>=3.0,<4.0
+cryptography==42.0.5
+pymysql==1.1.0
+scipy==1.13.0

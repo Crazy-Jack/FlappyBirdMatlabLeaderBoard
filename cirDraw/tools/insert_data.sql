@@ -24,14 +24,14 @@ use flappybird;
 
 
 
-INSERT INTO SubmissionTable VALUES (
-    0,
-    'xdsdeew2fereer3eex',
-    '2022-4-18 11:00:00',
-    '/home/tianqinl/webserver-deploy-setup/docker-django-deploy/djanego/cirDraw/tools',
-    'pdC03jFp2Qs',
-    'tianqinl',
-    'MybirdFlies',
-    1,
-    200
-);
+-- INSERT INTO SubmissionTable VALUES (
+--     0,
+--     'xdsdeew2fereer3eex',
+--     '2022-4-18 11:00:00',
+--     '/home/tianqinl/webserver-deploy-setup/docker-django-deploy/djanego/cirDraw/tools',
+--     'pdC03jFp2Qs',
+--     'tianqinl',
+--     'MybirdFlies',
+--     1,
+--     200
+-- );

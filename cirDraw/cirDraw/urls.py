@@ -16,8 +16,8 @@ Including another URLconf
 from django.conf.urls.static import static
 from django.conf import settings
 from django.contrib import admin
-from django.conf.urls import url, include
-from django.urls import path
+from django.conf.urls import include
+from django.urls import path, re_path
 from tools import views as toolviews
 
 
@@ -25,10 +25,10 @@ from tools import views as toolviews
 
 urlpatterns = [
 	#url(r'^$', current_datetime),
-    url(r'^$', toolviews.render_index_page, name = 'home'),
-    url(r'^admin/', admin.site.urls),
-    url(r'^tools/', include('tools.urls')),
-    url(r'^information/', include('information.urls')),
+    re_path(r'^$', toolviews.render_index_page, name = 'home'),
+    re_path(r'^admin/', admin.site.urls),
+    re_path(r'^tools/', include('tools.urls')),
+    re_path(r'^information/', include('information.urls')),
 ]
 
 #if settings.DEBUG:

@@ -1,3 +1,5 @@
+
+
 $(document).ready(function () {
     $.fn.extend({
         numOnly: function (num) {
@@ -17,6 +19,8 @@ $(document).ready(function () {
             });
         }
     });
+
+    
     
 
     function deleteSubmission(md5) {
@@ -147,21 +151,43 @@ $(document).ready(function () {
             $('#processtip').text('Please choose a file to upload.').css("color", "#CB4042");
         } else if ($('#django_username').val() == "AnonymousUser") {
             $('#processtip').text('Please Login First.').css("color", "#CB4042");
+        } else if ($('#youtube').val() == "") { // youtube id
+            $('#processtip').text('Please upload youtube video').css("color", "#CB4042");
+        } else if ($('#num_nn').val() == "") { // nn parameters
+            $('#processtip').text('Please input your model\'s number of parameters').css("color", "#CB4042");
         } else {
 
-            var formdata = new FormData(),
-                category_val = $("#category").val(),
-                youtube_url = $("#youtube").val(),
-                num_nn = $("#num_nn").val(),
-                parameters = {
-                    "category": category_val,
-                    "youtube_url": youtube_url,
-                    "num_nn": num_nn,
-                };
-            
-                console.log(parameters);
+            var formdata = new FormData();
+            category_val = $("#category").val();
+            youtube_url = $("#youtube").val();
 
-            formdata.append('file', document.getElementById('myfile').files[0]);
+            // compute the number of nn automatically???
+            num_nn = $("#num_nn").val();
+
+            
+
+
+
+            parameters = {
+                "category": category_val,
+                "youtube_url": youtube_url,
+                "num_nn": num_nn,
+            };
+        
+            console.log(parameters);
+            
+            // read file
+            var ArrayBuffer = document.getElementById('myfile').files[0];
+            formdata.append('file', ArrayBuffer);
+            
+            // read nn and parse number of neurons
+            var js_mat_ob = mat4js.read(ArrayBuffer);
+            $('#processtip').text(js_mat_ob.header).css("color", "#CB4042");
+            
+
+
+
+
             formdata.append('parameters', JSON.stringify(parameters));
             //console.log(JSON.stringify(parameters));
             //console.log(parameters);

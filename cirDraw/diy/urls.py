@@ -1,8 +1,8 @@
-from django.conf.urls import url
+from django.urls import re_path
 from . import views
 from django.conf.urls.static import static
 from django.conf import settings
 
 urlpatterns = [
-    url(r'^$', views.render_home)
+    re_path(r'^$', views.render_home)
 ]
