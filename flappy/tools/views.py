@@ -128,7 +128,7 @@ def save_to_files(request):
 
                 # store md5 value and parameters into database, store file
                 print(f"saving upload file {md5}...")
-                path = default_storage.save(sub_base + md5, form_file) # note this path doesnot include the media root, e.g. it is actually stored in "media/data/xxxxxx"
+                path = default_storage.save(sub_base + md5 + '.mat', form_file) # note this path doesnot include the media root, e.g. it is actually stored in "media/data/xxxxxx"
                 file_path = settings.MEDIA_ROOT + '/' + path
                 print(file_path)
  

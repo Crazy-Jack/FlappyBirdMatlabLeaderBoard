@@ -60,3 +60,8 @@ python3.12 manage.py makemigrations
 python3.12 manage.py migrate
 
 this will migrate the database with users which would be useful for later development
+
+
+=======
+Save to file Failed:  invalid literal for int() with base 10: ''
+

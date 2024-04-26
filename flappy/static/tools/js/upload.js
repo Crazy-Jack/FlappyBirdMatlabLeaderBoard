@@ -87,8 +87,6 @@ $(document).ready(function () {
     
     function finishProcess(md5) {
         $('#processtip').text('Submission Completed!');	// refresh the table
-	// another ajax to /tools/get_user_data/ (returns a qeury table)
-
 
 	query_user_table();
 	
@@ -176,17 +174,10 @@ $(document).ready(function () {
         
             console.log(parameters);
             
-            // read file
+
+            // building the form
             var ArrayBuffer = document.getElementById('myfile').files[0];
             formdata.append('file', ArrayBuffer);
-            
-            // read nn and parse number of neurons
-            var js_mat_ob = mat4js.read(ArrayBuffer);
-            $('#processtip').text(js_mat_ob.header).css("color", "#CB4042");
-            
-
-
-
 
             formdata.append('parameters', JSON.stringify(parameters));
             //console.log(JSON.stringify(parameters));
@@ -202,7 +193,6 @@ $(document).ready(function () {
                 timeout: 5000000000,
             };
 
-	    //$('#submit').text('✓ Submitted').prop('disabled', true);
             $('#cancel').hide();
             
             $('#processtip').after('<div class="lds-roller d-inline-block"><div></div><div></div><div></div><div></div><div></div><div></div><div></div><div></div></div><p class="d-inine-block" id="upload-text">Uploading...</p>');
