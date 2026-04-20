@@ -29,7 +29,7 @@ $(document).ready(function () {
 	    console.log(this)
 	    console.log("delete " + md5);
 	    
-	    $.getJSON("/tools/delete_md5/", {'md5': md5}).done(function (delete_flag) {
+	    $.getJSON("/flappybird/tools/delete_md5/", {'md5': md5}).done(function (delete_flag) {
 		query_user_table();
 		console.log(delete_flag);
 	    	}).fail();
@@ -37,7 +37,7 @@ $(document).ready(function () {
 	};
     function query_user_table() {
 	
-        $.getJSON("/tools/get_user_data/", {}).done(function (querys) {
+        $.getJSON("/flappybird/tools/get_user_data/", {}).done(function (querys) {
             console.log("querys")
             console.log(querys)
                 var table_html = `
@@ -140,7 +140,7 @@ $(document).ready(function () {
         }
     });
 
-    //$("div#drop-select-file").dropzone({ url: "/tools/upload/" });
+    //$("div#drop-select-file").dropzone({ url: "/flappybird/tools/upload/" });
 
     $('#submit').click(function (e) {
         e.preventDefault();

@@ -257,7 +257,7 @@ def create_user(request):
             messages.success(request, f"Registration Complete!", extra_tags='register_user')
         
         if not is_valid:
-            return redirect("/tools/user/")
+            return redirect("/flappybird/tools/user/")
         else:
             # update database
             user = User.objects.create_user(
@@ -266,13 +266,13 @@ def create_user(request):
                 password = password
             )
             login(request, user)
-            return redirect("/tools/upload/")
+            return redirect("/flappybird/tools/upload/")
         
 
 def loguserout(request):
     # a view that will log out a user using passward
     logout(request)
-    return redirect("/tools/user/")
+    return redirect("/flappybird/tools/user/")
 
 def loguserin(request):
     # a view that will login a user using passward
@@ -285,9 +285,9 @@ def loguserin(request):
         if user is not None:
             login(request, user)
             #return render(request, 'tools/upload.html', {'user': user})
-            return redirect("/tools/upload/")
+            return redirect("/flappybird/tools/upload/")
         else:
             messages.error(request, "Login Failed.", extra_tags='login_user')
-            return redirect("/tools/user/")
+            return redirect("/flappybird/tools/user/")
     return 
 

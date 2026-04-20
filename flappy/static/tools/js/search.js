@@ -183,7 +183,7 @@ $(document).ready(function () {
             if (window.click_once) {
                 resetPage();
             }
-            $.getJSON("/tools/search", {
+            $.getJSON("/flappybird/tools/search", {
                 'gene_name': gene_name
             }).done(function(processResult) {
                 console.log(processResult)
@@ -191,7 +191,7 @@ $(document).ready(function () {
             }).fail(
                 function () {
                     $('#processtip').html('<p>Server timeout, please <a id="refresher" onclick="location.reload()"><i>refresh</i><i class="fas fa-redo-alt ml-1"></i></a></p>');
-                    $('#aftersubmit').html('<p>Gene within the same clusters: <a href="/tools/">link text</a></p>')
+                    $('#aftersubmit').html('<p>Gene within the same clusters: <a href="/flappybird/tools/">link text</a></p>')
                     $('#myChart').html('<canvas id="myChart"></canvas>');
                 }
             );

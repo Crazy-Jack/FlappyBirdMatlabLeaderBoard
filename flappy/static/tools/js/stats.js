@@ -191,7 +191,7 @@ $(document).ready(function () {
         var disply_percent = $('#fname5').val();
         console.log(top_percent, upordown, disply_percent)
 
-        $.getJSON("/tools/get_meta_stats/", {
+        $.getJSON("/flappybird/tools/get_meta_stats/", {
             top_percent: top_percent,
             upordown: upordown,
             disply_percent: disply_percent
@@ -324,7 +324,7 @@ $(document).ready(function () {
         // var cellline = $('#ss_elem_SKBR3').html(); 
         console.log("cellline" + celllines);
         
-        $.getJSON("/tools/get_stats/", {
+        $.getJSON("/flappybird/tools/get_stats/", {
             celllines: celllines,
             durations: durations,
             doses: doses,
@@ -382,7 +382,7 @@ $(document).ready(function () {
         // var cellline = $('#ss_elem_SKBR3').html(); 
         console.log("cellline" + celllines);
         
-        $.getJSON("/tools/get_stats/", {
+        $.getJSON("/flappybird/tools/get_stats/", {
             celllines: celllines,
             durations: durations,
             doses: doses,

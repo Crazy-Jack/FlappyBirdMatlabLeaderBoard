@@ -26,7 +26,7 @@ BASE_DIR = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
 SECRET_KEY = 'django-insecure-a4r%ymj_+41ldo*#un&n!j2lq($0lput5#fu=jevrezy@y94e+'
 
 # SECURITY WARNING: don't run with debug turned on in production!
-DEBUG = False
+DEBUG = True
 
 ALLOWED_HOSTS = ['*']
 
@@ -83,19 +83,8 @@ WSGI_APPLICATION = 'flappy.wsgi.application'
 
 DATABASES = {
     'default': {
-        'ENGINE': 'django.db.backends.mysql',
-        # 'ENGINE': 'dj_db_conn_pool.backends.mysql',
-        'NAME': 'flappybird',
-        'USER': 'bird_agent',
-        'PASSWORD': 'flappy',
-        # 'HOST': '127.0.0.1',
-        'HOST': 'host.docker.internal',
-        # 'HOST': '149.28.46.67',
-        'PORT': 3306,
-        'POOL_OPTIONS': {
-            'POOL_SIZE': 50,
-            'MAX_OVERFLOW': 10
-        }
+        'ENGINE': 'django.db.backends.sqlite3',
+        'NAME': os.path.join(BASE_DIR, 'db.sqlite3'),
     }
 }
 
@@ -136,7 +125,7 @@ USE_TZ = True
 # Static files (CSS, JavaScript, Images)
 # https://docs.djangoproject.com/en/2.1/howto/static-files/
 
-STATIC_URL = '/static/'
+STATIC_URL = '/flappybird/static/'
 # STATIC_ROOT = os.path.join(BASE_DIR, "static")
 
 STATICFILES_DIRS = (
@@ -154,7 +143,7 @@ STATICFILES_DIRS = (
 MEDIA_ROOT = os.path.join(BASE_DIR, "media")
 
 
-MEDIA_URL = '/media/'
+MEDIA_URL = '/flappybird/media/'
 
 
 

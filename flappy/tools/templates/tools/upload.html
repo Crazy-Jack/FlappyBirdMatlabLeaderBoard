@@ -11,9 +11,9 @@
   <div class="inlineText"> User Name: <p class="inlineText" id="username">{{ user }}</p>
 
     {%if not user.username %}
-      <a href="/tools/user/"><u>Log In</u></a>
+      <a href="/flappybird/tools/user/"><u>Log In</u></a>
     {% else %}        
-      <a href="/tools/logout/"><u>Log Out</u></a>
+      <a href="/flappybird/tools/logout/"><u>Log Out</u></a>
     {% endif %}
   
   </div>
@@ -32,7 +32,23 @@
 
         <label class="inlineText">Youtube ID:</label>
         <input type="text" id="youtube" name="youtube">
-	<label class="inlineText">(How to Get? See <a href="https://www.youtube.com/watch?v=1oN4XISnKic" target="_blank">Here</a> for details)</label>
+	<label class="inlineText">(How to get your YouTube ID? See <a href="https://www.youtube.com/watch?v=1oN4XISnKic" target="_blank">Here</a>)</label>
+	<br>
+	<details style="margin-top:8px; cursor:pointer;">
+	  <summary><b>Important: Enable Embedding for Your Video</b></summary>
+	  <div style="margin-top:8px; padding:10px; background:#f8f9fa; border:1px solid #ddd; border-radius:4px; font-size:14px;">
+	    <p>Your video must allow embedding, otherwise it will show <b>Error 153</b> on the leaderboard. Follow these steps:</p>
+	    <ol>
+	      <li>Go to <a href="https://studio.youtube.com" target="_blank">YouTube Studio</a></li>
+	      <li>Click <b>Content</b> from the left menu</li>
+	      <li>Find your video and click <b>Details</b> (the pencil icon)</li>
+	      <li>Scroll down and click <b>Show More</b></li>
+	      <li>Under the <b>License and rights ownership</b> section, check <b>"Allow embedding"</b></li>
+	      <li>Click <b>Save</b> in the top right corner</li>
+	    </ol>
+	    <p style="color:#CB4042;"><b>Note:</b> Make sure your video is set to <b>"Not made for kids"</b> (Settings &rarr; Audience).</p>
+	  </div>
+	</details>
       {% csrf_token %}
       </form>
       <br>
